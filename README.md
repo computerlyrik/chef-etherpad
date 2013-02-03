@@ -1,4 +1,4 @@
-etherpad-lite Cookbook
+etherpad Cookbook
 ======================
 
 #### etherpad::default
