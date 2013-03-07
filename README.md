@@ -1,28 +1,21 @@
-etherpad Cookbook
+etherpad-lite Cookbook
 ======================
 
-#### etherpad::default
-installs ol' fat etherpad
-
-#### etherpad::lite
-installs newer etherpad-lite
-
-TODO:
-* implement etherpad::default
-* fix fedora, centos
-* attributize and template settings.json
+#### etherpad-lite::default
+installs etherpad-lite
 
 Requirements
 ------------
 #### recipes
 - `nodejs` - etherpad-lite runs on javascript
+- `postgres` - we use postgres
 
 Attributes
 ----------
 TODO: Add attributes
 
 e.g.
-#### etherpad::default
+#### etherpad-lite::default
 <table>
   <tr>
     <th>Key</th>
@@ -40,7 +33,7 @@ e.g.
 
 Usage
 -----
-#### etherpad::lite
+#### etherpad-lite::default
 TODO: Write usage instructions for each cookbook.
 
 e.g.
@@ -57,16 +50,20 @@ Just include `etherpad-lite` in your node's `run_list`:
 
 Contributing
 ------------
-TODO: (optional) If this is a public cookbook, detail the process for contributing. If this is a private cookbook, remove this section.
 
-e.g.
 1. Fork the repository on Github
 2. Create a named feature branch (like `add_component_x`)
-3. Write you change
+3. Write your change
 4. Write tests for your change (if applicable)
 5. Run the tests, ensuring they all pass
 6. Submit a Pull Request using Github
 
 License and Authors
 -------------------
-Authors: TODO: List authors
+
+License: Apache 2.0
+
+Authors: 
+
+* OpenWatch FPC
+* computerlyrik original version (https://github.com/computerlyrik/chef-etherpad)
