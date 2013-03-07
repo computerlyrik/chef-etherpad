@@ -21,7 +21,7 @@
   //
   // make sure to have the minimum and correct file access permissions set
   // so that the Etherpad server can access them
-  <% if !node[:etherpad][:ssl_enabled] -%>
+  <% if !node[:etherpad-lite][:ssl_enabled] -%>
   /*
   <% end -%>
 
@@ -30,7 +30,7 @@
             "cert" : "<%= @ssl_cert_path %>"
           },
 
-  <% if !node[:etherpad][:ssl_enabled] -%>
+  <% if !node[:etherpad-lite][:ssl_enabled] -%>
   */
   <% end -%>
 
@@ -82,13 +82,18 @@
 
   /* Users for basic authentication. is_admin = true gives access to /admin.
      If you do not uncomment this, /admin will not be available! */
-  
+  <% if !node[:etherpad-lite][:admin_enabled] -%>
+  /*
+  <% end -%>
   "users": {
     "admin": {
       "password": "<%= @admin_password %>",
       "is_admin": true
     }
   },
+  <% if !node[:etherpad-lite][:admin_enabled] -%>
+  */
+  <% end -%>
 
   /* The log level we are using, can be: DEBUG, INFO, WARN, ERROR */
   "loglevel": "<%= @log_level %>",
