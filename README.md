@@ -9,6 +9,7 @@ Requirements
 #### recipes
 - `nodejs` - etherpad-lite runs on javascript
 - `postgres` - we use postgres
+- `database`
 
 Attributes
 ----------
@@ -39,11 +40,16 @@ The following attributes should be set based on your specific deployment, see th
 * `node['etherpad-lite']['admin_enabled']` - Enable the admin interface
 * `node['etherpad-lite']['admin_password']` - Password for "admin" user.
 * `node['etherpad-lite']['log_level']` - The log level we are using, can be: DEBUG, INFO, WARN, ERROR
+* `node['etherpad-lite']['service_user']` - user to run etherpad
+* `node['etherpad-lite']['service_user_gid']` - group to run etherpad
+* `node['etherpad-lite']['service_user_home']`- home dir
+
 
 Usage
 -----
 #### etherpad-lite::default
-TODO: Write usage instructions for each cookbook.
+
+Don't use this yet! It probably doesn't even work.
 
 e.g.
 Just include `etherpad-lite` in your node's `run_list`:

@@ -33,8 +33,9 @@ node.set['nodejs']['install_method'] = 'package'
 include_recipe "nodejs"
 
 
-user = "etherpad-user"
-user_home = "/etherpad"
+user = node['etherpad-lite']['service_user']
+group = node['etherpad-lite']['service_user_gid']
+user_home = node['etherpad-lite']['service_user_home']
 
 user user do
   home user_home
@@ -50,6 +51,32 @@ end
 
 template "#{user_home}/etherpad-lite/settings.json" do
   owner user
+  group group
+  variables({
+    :title => node['etherpad-lite']['title'],
+    :favicon_url => node['etherpad-lite']['favicon_url'],
+    :ip_address => node['etherpad-lite']['ip_address'],
+    :port_number => node['etherpad-lite']['port_number'],
+    :ssl_enabled => node['etherpad-lite']['ssl_enabled'],
+    :ssl_key_path => node['etherpad-lite']['ssl_key_path'],
+    :ssl_cert_path => node['etherpad-lite']['ssl_cert_path'],
+    :db_type => node['etherpad-lite']['db_type'],
+    :db_user => node['etherpad-lite']['db_user'],
+    :db_host => node['etherpad-lite']['db_host'],
+    :db_password => node['etherpad-lite']['db_password'],
+    :db_name => node['etherpad-lite']['db_name'],
+    :default_text => node['etherpad-lite']['default_text'],
+    :require_session => node['etherpad-lite']['require_session'],
+    :edit_only => node['etherpad-lite']['edit_only'],
+    :minify => node['etherpad-lite']['minify'],
+    :max_age => node['etherpad-lite']['max_age'],
+    :abiword_path => node['etherpad-lite']['abiword_path'],
+    :require_authentication => node['etherpad-lite']['require_authentication'],
+    :require_authorization => node['etherpad-lite']['require_authorization'],
+    :admin_enabled => node['etherpad-lite']['admin_enabled'],
+    :admin_password => node['etherpad-lite']['admin_password'],
+    :log_level => node['etherpad-lite']['log_level']
+  })
 end
 
 service "etherpad-lite" do
