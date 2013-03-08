@@ -47,7 +47,7 @@ user user do
 end
 
 git "#{user_home}/etherpad-lite" do
-  repository node['etherpad-lite']['etherpad-git-repo-url']
+  repository node['etherpad-lite']['etherpad_git_repo_url']
   action :sync
   user user
 end
