@@ -43,7 +43,8 @@ The following attributes should be set based on your specific deployment, see th
 * `node['etherpad-lite']['service_user']` - user to run etherpad
 * `node['etherpad-lite']['service_user_gid']` - group to run etherpad
 * `node['etherpad-lite']['service_user_home']`- home dir
-
+* `node['etherpad-lite']['etherpad-git-repo-url']` = set this to the git repo of your fork of etherpad-lite, or leave as default
+* `node['etherpad-lite']['etherpad_api_key']` = sets the API key for the HTTP API (APIKEY.txt), if you leave it blank it will be generated for you by the app on first launch
 
 Usage
 -----

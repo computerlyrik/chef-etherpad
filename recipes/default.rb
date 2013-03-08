@@ -3,6 +3,7 @@
 # Recipe:: lite
 #
 # Copyright 2013, computerlyrik
+# Modifications by OpenWatch FPC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -39,12 +40,14 @@ user_home = node['etherpad-lite']['service_user_home']
 
 user user do
   home user_home
-  supports ({:manage_home => true})
+  supports ({
+    :manage_home => true
+  })
   system true
 end
 
 git "#{user_home}/etherpad-lite" do
-  repository "git://github.com/ether/etherpad-lite.git"
+  repository node['etherpad-lite']['etherpad-git-repo-url']
   action :sync
   user user
 end
@@ -77,6 +80,17 @@ template "#{user_home}/etherpad-lite/settings.json" do
     :admin_password => node['etherpad-lite']['admin_password'],
     :log_level => node['etherpad-lite']['log_level']
   })
+end
+
+etherpad_api_key = node['etherpad-lite']['etherpad_api_key']
+
+if etherpad_api_key != ''
+  template "#{user_home}/etherpad-lite/APIKEY.txt" do
+    owner user
+    group group
+    variables({
+      :etherpad_api_key => etherpad_api_key
+    })
 end
 
 service "etherpad-lite" do

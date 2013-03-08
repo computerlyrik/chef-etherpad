@@ -36,3 +36,6 @@ default['etherpad-lite']['log_level'] = "INFO"
 default['etherpad-lite']['service_user'] = "etherpad-user"
 default['etherpad-lite']['service_user_gid'] = 999
 default['etherpad-lite']['service_user_home'] = "/etherpad"
+
+default['etherpad-lite']['etherpad-git-repo-url'] = 'git://github.com/ether/etherpad-lite.git'
+default['etherpad-lite']['etherpad_api_key'] = ''
