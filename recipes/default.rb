@@ -39,12 +39,6 @@ group = node['etherpad-lite']['service_user_gid']
 user_home = node['etherpad-lite']['service_user_home']
 project_path = "#{user_home}/etherpad-lite"
 
-npm_package "pg" do
-  version "0.14.0"
-  path project_path
-  action :install_local
-end
-
 user user do
   home user_home
   supports ({
@@ -101,10 +95,27 @@ if etherpad_api_key != ''
   end
 end
 
-service "etherpad-lite" do
-  start_command "#{project_path}/bin/run.sh"
-#  stop_command "#{user_home}/bin/stop.sh"
+npm_package "pg" do
+  version "0.14.0"
+  path project_path
+  action :install_local
+end
+
+# Upstart service config file
+template "/etc/init/" + node['etherpad-lite']['service_name'] + ".conf" do
+    source "upstart.conf.erb"
+    owner node['etherpad-lite']['service_user'] 
+    group node['etherpad-lite']['service_user_gid'] 
+    variables({
+    :etherpad_installation_dir => project_path,
+    :etherpad_logs_dir => node['etherpad-lite']['logs_dir'] ,
+    :etherpad_service_user => user,
+    })
+end
+
+# Register capture app as a service
+service node['etherpad-lite']['service_name'] do
+  provider Chef::Provider::Service::Upstart
   action :start
-  subscribes :restart, "#{project_path}"
 end
 
