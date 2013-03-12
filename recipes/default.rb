@@ -101,16 +101,54 @@ npm_package "pg" do
   action :install_local
 end
 
+
+
+# Make Nginx log dirs
+log_dir = node['etherpad-lite']['logs_dir']
+access_log = log_dir + '/access.log'
+error_log = log_dir + '/error.log'
+
 # Upstart service config file
 template "/etc/init/" + node['etherpad-lite']['service_name'] + ".conf" do
     source "upstart.conf.erb"
-    owner node['etherpad-lite']['service_user'] 
-    group node['etherpad-lite']['service_user_gid'] 
+    owner user
+    group group
     variables({
-    :etherpad_installation_dir => project_path,
-    :etherpad_logs_dir => node['etherpad-lite']['logs_dir'] ,
-    :etherpad_service_user => user,
+      :etherpad_installation_dir => project_path,
+      :etherpad_service_user => user,
+      :etherpad_access_log => access_log,
+      :etherpad_error_log => error_log,
     })
+end
+
+directory log_dir do
+  owner user
+  group group
+  recursive true
+  action :create
+end
+
+# Make service log file
+file access_log  do
+  owner user
+  group group
+  action :create_if_missing # see actions section below
+end
+
+# Make service log file
+file error_log  do
+  owner user
+  group group
+  action :create_if_missing # see actions section below
+end
+
+## Syncdb
+bash "installdeps" do
+  user user
+  cwd project_path
+  code <<-EOH
+  ./bin/installDeps.sh >> #{error_log}
+  EOH
 end
 
 # Register capture app as a service

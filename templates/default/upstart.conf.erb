@@ -1,3 +1,5 @@
+console log
+
 # From https://github.com/ether/etherpad-lite/wiki/How-to-deploy-Etherpad-Lite-as-a-service
 
 description "etherpad-lite"
@@ -6,23 +8,13 @@ start on started networking
 stop on runlevel [!2345]
 
 env EPHOME=<%= @etherpad_installation_dir %>
-env EPLOGS=<%= @etherpad_logs_dir %>
 env EPUSER=<%= @etherpad_service_user %>
 
 respawn
 
-pre-start script
-    cd $EPHOME
-    mkdir $EPLOGS                              ||true
-    chown $EPUSER:admin $EPLOGS                ||true
-    chmod 0755 $EPLOGS                         ||true
-    chown -R $EPUSER:admin $EPHOME/var         ||true
-    $EPHOME/bin/installDeps.sh >> $EPLOGS/error.log || { stop; exit 1; }
-end script
-
 script
   cd $EPHOME/
   exec su -s /bin/sh -c 'exec "$0" "$@"' $EPUSER -- node node_modules/ep_etherpad-lite/node/server.js \
-                        >> $EPLOGS/access.log \
-                        2>> $EPLOGS/error.log
+                        >> <%= @etherpad_access_log %> \
+                        2>> <%= @etherpad_error_log %>
 end script
