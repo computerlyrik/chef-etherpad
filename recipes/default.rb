@@ -121,6 +121,23 @@ template "/etc/init/" + node['etherpad-lite']['service_name'] + ".conf" do
     })
 end
 
+# Nginx config file
+template node['nginx']['dir'] + "/sites-enabled/etherpad.conf" do
+    source "nginx.conf.erb"
+    owner node['nginx']['user']
+    group node['nginx']['group']
+    variables({
+      :domain => node['etherpad-lite']['domain'],
+      :internal_port => node['etherpad-lite']['port_number'],
+      :ssl_cert => node['etherpad-lite']['ssl_cert_path'],
+      :ssl_key => node['etherpad-lite']['ssl_key_path'],
+      :access_log => access_log,
+      :error_log => error_log,
+    })
+    notifies :restart, "service[nginx]"
+    action :create
+end
+
 directory log_dir do
   owner user
   group group

@@ -40,6 +40,7 @@ default['etherpad-lite']['service_user_gid'] = 999
 default['etherpad-lite']['service_user_home'] = "/home/#{service_user}"
 default['etherpad-lite']['service_name'] = "etherpad"
 default['etherpad-lite']['logs_dir'] = "/var/logs/etherpad"
+default['etherpad-lite']['domain'] = "example.com"
 
 
 

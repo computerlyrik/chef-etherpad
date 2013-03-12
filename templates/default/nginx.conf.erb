@@ -1,0 +1,33 @@
+# Based on https://github.com/ether/etherpad-lite/wiki/How-to-put-Etherpad-Lite-behind-a-reverse-Proxy
+
+server {
+        listen       443;
+        server_name  <%= @domain %>;
+
+        access_log  <%= @access_log %>;
+        error_log   <%= @error_log %>;
+
+        ssl                  on;
+        ssl_certificate      <%= @ssl_cert %>;
+        ssl_certificate_key  <%= @ssl_key %>;
+
+        ssl_session_timeout  5m;
+
+        ssl_protocols  SSLv2 SSLv3 TLSv1;
+        ssl_ciphers ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP;
+        ssl_prefer_server_ciphers   on;
+
+        location / {
+            proxy_pass             http://localhost:<%= @internal_port %>/;
+            proxy_set_header       Host $host;
+            # be carefull, this line doesn't override any proxy_buffering on set in a conf.d/file.conf
+            proxy_buffering off;
+        }
+}
+
+server {
+    listen      80;
+    server_name <%= @domain %>;
+    rewrite     ^(.*)   https://$server_name$1 permanent;
+}
+
