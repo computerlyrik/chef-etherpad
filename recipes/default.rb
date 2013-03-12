@@ -91,6 +91,7 @@ if etherpad_api_key != ''
     variables({
       :etherpad_api_key => etherpad_api_key
     })
+  end
 end
 
 service "etherpad-lite" do
@@ -99,5 +100,4 @@ service "etherpad-lite" do
   action :start
   subscribes :restart, "#{user_home}/etherpad-lite"
 end
-
 
