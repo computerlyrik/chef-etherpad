@@ -37,6 +37,13 @@ include_recipe "nodejs"
 user = node['etherpad-lite']['service_user']
 group = node['etherpad-lite']['service_user_gid']
 user_home = node['etherpad-lite']['service_user_home']
+project_path = "#{user_home}/etherpad-lite"
+
+npm_package "pg" do
+  version "0.14.0"
+  path project_path
+  action :install_local
+end
 
 user user do
   home user_home
@@ -46,13 +53,13 @@ user user do
   system true
 end
 
-git "#{user_home}/etherpad-lite" do
+git project_path do
   repository node['etherpad-lite']['etherpad_git_repo_url']
   action :sync
   user user
 end
 
-template "#{user_home}/etherpad-lite/settings.json" do
+template "#{project_path}/settings.json" do
   owner user
   group group
   variables({
@@ -85,7 +92,7 @@ end
 etherpad_api_key = node['etherpad-lite']['etherpad_api_key']
 
 if etherpad_api_key != ''
-  template "#{user_home}/etherpad-lite/APIKEY.txt" do
+  template "#{project_path}/APIKEY.txt" do
     owner user
     group group
     variables({
@@ -95,9 +102,9 @@ if etherpad_api_key != ''
 end
 
 service "etherpad-lite" do
-  start_command "#{user_home}/etherpad-lite/bin/run.sh"
+  start_command "#{project_path}/bin/run.sh"
 #  stop_command "#{user_home}/bin/stop.sh"
   action :start
-  subscribes :restart, "#{user_home}/etherpad-lite"
+  subscribes :restart, "#{project_path}"
 end
 

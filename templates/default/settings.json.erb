@@ -15,23 +15,18 @@
   "ip": "<%= @ip_address %>",
   "port" : <%= @port_number %>,
 
-  
+
+  <% if :ssl_enabled == true -%>
   // Node native SSL support
   // this is disabled by default
   //
   // make sure to have the minimum and correct file access permissions set
   // so that the Etherpad server can access them
-  <% if !node[:etherpad-lite][:ssl_enabled] -%>
-  /*
-  <% end -%>
-
   "ssl" : {
             "key" : "<%= @ssl_key_path %>",
             "cert" : "<%= @ssl_cert_path %>"
           },
 
-  <% if !node[:etherpad-lite][:ssl_enabled] -%>
-  */
   <% end -%>
 
   //The Type of the database. You can choose between dirty, postgres, sqlite and mysql
@@ -80,19 +75,16 @@
   /* Require authorization by a module, or a user with is_admin set, see below. */
   "requireAuthorization": <%= @require_authorization %>,
 
+
+  <% if :admin_enabled == true -%>
   /* Users for basic authentication. is_admin = true gives access to /admin.
      If you do not uncomment this, /admin will not be available! */
-  <% if !node[:etherpad-lite][:admin_enabled] -%>
-  /*
-  <% end -%>
   "users": {
     "admin": {
       "password": "<%= @admin_password %>",
       "is_admin": true
     }
   },
-  <% if !node[:etherpad-lite][:admin_enabled] -%>
-  */
   <% end -%>
 
   /* The log level we are using, can be: DEBUG, INFO, WARN, ERROR */

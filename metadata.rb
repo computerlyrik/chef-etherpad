@@ -8,5 +8,6 @@ version          '0.1.1'
 
 depends         'nodejs'
 depends         'postgresql'
+depends         'npm'
 
 # Check README.md for attributes
