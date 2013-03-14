@@ -95,12 +95,7 @@ if etherpad_api_key != ''
   end
 end
 
-npm_package "pg" do
-  version "0.14.0"
-  path project_path
-  action :install_local
-end
-
+node_modules = project_path + "/node_modules"
 
 
 # Make Nginx log dirs
@@ -161,11 +156,26 @@ end
 
 ## Install dependencies
 bash "installdeps" do
-  user user
+  user 0
   cwd project_path
   code <<-EOH
   ./bin/installDeps.sh >> #{error_log}
   EOH
+end
+
+# Create and set permissions for node_modules
+directory node_modules do
+  owner user
+  group group
+  mode "770"
+  recursive true
+  action :create
+end
+
+npm_package "pg" do
+  version "0.14.0"
+  path project_path
+  action :install_local
 end
 
 # Register capture app as a service
