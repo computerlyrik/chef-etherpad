@@ -6,10 +6,11 @@ installs etherpad-lite
 
 Requirements
 ------------
-#### recipes
+#### cookbooks
 - `nodejs` - etherpad-lite runs on javascript
-- `postgres` - we use postgres
-- `database`
+- `postgresql` - we use postgres
+- `npm` - pg gem needs to be installed
+- `nginx` - Might not be the optimal way to run it
 
 Attributes
 ----------
@@ -45,12 +46,15 @@ The following attributes should be set based on your specific deployment, see th
 * `node['etherpad-lite']['service_user_home']`- home dir
 * `node['etherpad-lite']['etherpad_git_repo_url']` = set this to the git repo of your fork of etherpad-lite, or leave as default
 * `node['etherpad-lite']['etherpad_api_key']` = sets the API key for the HTTP API (APIKEY.txt), if you leave it blank it will be generated for you by the app on first launch
+* `node['etherpad-lite']['service_name']` = Name of service
+* `node['etherpad-lite']['logs_dir']` = Path to logs directory
+* `node['etherpad-lite']['domain']` = Domain where it is running
 
 Usage
 -----
 #### etherpad-lite::default
 
-Don't use this yet! It probably doesn't even work.
+Override any defaults and then include the recipe in your run list or cookbook.
 
 e.g.
 Just include `etherpad-lite` in your node's `run_list`:
