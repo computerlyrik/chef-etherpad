@@ -159,7 +159,7 @@ file error_log  do
   action :create_if_missing # see actions section below
 end
 
-## Syncdb
+## Install dependencies
 bash "installdeps" do
   user user
   cwd project_path
