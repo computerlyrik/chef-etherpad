@@ -16,6 +16,7 @@ server {
         ssl_protocols  SSLv2 SSLv3 TLSv1;
         ssl_ciphers ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP;
         ssl_prefer_server_ciphers   on;
+        add_header Strict-Transport-Security "max-age=315360000; includeSubdomains";
 
         location / {
             proxy_pass             http://localhost:<%= @internal_port %>/;
