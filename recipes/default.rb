@@ -39,14 +39,6 @@ group = node['etherpad-lite']['service_user_gid']
 user_home = node['etherpad-lite']['service_user_home']
 project_path = "#{user_home}/etherpad-lite"
 
-user user do
-  home user_home
-  supports ({
-    :manage_home => true
-  })
-  system true
-end
-
 git project_path do
   repository node['etherpad-lite']['etherpad_git_repo_url']
   action :sync
@@ -170,12 +162,6 @@ directory node_modules do
   mode "770"
   recursive true
   action :create
-end
-
-npm_package "pg" do
-  version "0.14.0"
-  path project_path
-  action :install_local
 end
 
 # Register capture app as a service
