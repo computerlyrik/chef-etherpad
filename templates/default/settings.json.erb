@@ -75,8 +75,6 @@
   /* Require authorization by a module, or a user with is_admin set, see below. */
   "requireAuthorization": <%= @require_authorization %>,
 
-
-  <% if :admin_enabled == true -%>
   /* Users for basic authentication. is_admin = true gives access to /admin.
      If you do not uncomment this, /admin will not be available! */
   "users": {
@@ -85,7 +83,6 @@
       "is_admin": true
     }
   },
-  <% end -%>
 
   /* The log level we are using, can be: DEBUG, INFO, WARN, ERROR */
   "loglevel": "<%= @log_level %>",
