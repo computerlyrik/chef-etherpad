@@ -49,6 +49,7 @@ The following attributes should be set based on your specific deployment, see th
 * `node['etherpad-lite']['service_name']` = Name of service
 * `node['etherpad-lite']['logs_dir']` = Path to logs directory
 * `node['etherpad-lite']['domain']` = Domain where it is running
+* `node['etherpad-lite']['plugins']` = An array of plugins to install. These should be strings of the plugin name, without the ep_ prefix (as seen in the etherpad-lite admin's plugin manager).
 
 Usage
 -----
