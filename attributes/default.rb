@@ -13,6 +13,7 @@ default['etherpad-lite']['title'] = "Etherpad"
 default['etherpad-lite']['favicon_url'] = "favicon.ico"
 default['etherpad-lite']['ip_address'] = "0.0.0.0"
 default['etherpad-lite']['port_number'] = 9001
+default['etherpad-lite']['session_key'] = ""
 default['etherpad-lite']['ssl_enabled'] = false
 default['etherpad-lite']['ssl_key_path'] = ""
 default['etherpad-lite']['ssl_cert_path'] = ""
