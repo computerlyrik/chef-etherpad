@@ -15,6 +15,9 @@
   "ip": "<%= @ip_address %>",
   "port" : <%= @port_number %>,
 
+  // Session Key, used for reconnecting user sessions
+  // Set this to a secure string at least 10 characters long.  Do not share this value.
+  "sessionKey" : "<%= @session_key %>",
 
   <% if :ssl_enabled == true -%>
   // Node native SSL support

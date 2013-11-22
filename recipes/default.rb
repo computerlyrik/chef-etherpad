@@ -53,6 +53,7 @@ template "#{project_path}/settings.json" do
     :favicon_url => node['etherpad-lite']['favicon_url'],
     :ip_address => node['etherpad-lite']['ip_address'],
     :port_number => node['etherpad-lite']['port_number'],
+    :session_key => node['etherpad-lite']['session_key'],
     :ssl_enabled => node['etherpad-lite']['ssl_enabled'],
     :ssl_key_path => node['etherpad-lite']['ssl_key_path'],
     :ssl_cert_path => node['etherpad-lite']['ssl_cert_path'],
