@@ -87,4 +87,5 @@ License: Apache 2.0
 Authors: 
 
 * OpenWatch FPC
-* computerlyrik original version (https://github.com/computerlyrik/chef-etherpad)
+* @computerlyrik original version (https://github.com/computerlyrik/chef-etherpad)
+* @reidab
