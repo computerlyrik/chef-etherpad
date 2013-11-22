@@ -164,9 +164,25 @@ directory node_modules do
   action :create
 end
 
+# Install plugins
+unless node['etherpad-lite']['plugins'].empty?
+  node['etherpad-lite']['plugins'].each do |plugin|
+    plugin_npm_module = "ep_#{plugin}"
+    npm_package plugin_npm_module do
+      path project_path
+      action :install_local
+    end
+  end
+
+  # Hacky workaround because we can't pass a user to npm_module
+  execute "chown -R #{user} #{node_modules}" do
+    user "root"
+    notifies :restart, "service[#{node['etherpad-lite']['service_name']}]"
+  end
+end
+
 # Register capture app as a service
 service node['etherpad-lite']['service_name'] do
   provider Chef::Provider::Service::Upstart
   action :start
 end
-

@@ -43,6 +43,7 @@ default['etherpad-lite']['logs_dir'] = "/var/logs/etherpad"
 default['etherpad-lite']['domain'] = "example.com"
 
 
-
 default['etherpad-lite']['etherpad_git_repo_url'] = 'git://github.com/ether/etherpad-lite.git'
 default['etherpad-lite']['etherpad_api_key'] = ''
+
+default['etherpad-lite']['plugins'] = []
