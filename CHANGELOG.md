@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of etherpad-lite.
 
+## 0.1.1:
+
+Forked by OpenWatch to include variables in the template and only support etherpad-lite.
+
 ## 0.1.0:
 
 * Initial release of etherpad-lite
