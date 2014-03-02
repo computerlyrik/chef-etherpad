@@ -1,5 +1,10 @@
+ld Status](https://travis-ci.org/computerlyrik/chef-etherpad.png?branch=master)](https://tr
+avis-ci.org/computerlyrik/chef-etherpad)
+
 etherpad Cookbook
 ======================
+
+Code repo: https://github.com/computerlyrik/chef-etherpad
 
 #### etherpad::default
 installs ol' fat etherpad
