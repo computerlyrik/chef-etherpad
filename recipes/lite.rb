@@ -17,12 +17,12 @@
 # limitations under the License.
 #
 
-case node['platform_family']
-  when "debian", "ubuntu"
-    packages = %w{gzip git-core curl python libssl-dev pkg-config build-essential}
-  when "fedora","centos"
-    packages = %w{gzip git-core curl python openssl-devel}
-    # && yum groupinstall "Development Tools"
+case node[:platform]
+when "debian", "ubuntu"
+  packages = %w{gzip git-core curl python libssl-dev pkg-config build-essential}
+when "fedora", "centos"
+  packages = %w{gzip git-core curl python openssl-devel}
+  # && yum groupinstall "Development Tools"
 end
 
 packages.each do |p|
@@ -32,13 +32,12 @@ end
 node.set['nodejs']['install_method'] = 'package'
 include_recipe "nodejs"
 
-
 user = "etherpad-user"
 user_home = "/etherpad"
 
 user user do
   home user_home
-  supports ({:manage_home => true})
+  supports(manage_home: true)
   system true
 end
 
@@ -58,5 +57,3 @@ service "etherpad-lite" do
   action :start
   subscribes :restart, "#{user_home}/etherpad-lite"
 end
-
-
