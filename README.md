@@ -1,4 +1,4 @@
-ld Status](https://travis-ci.org/computerlyrik/chef-etherpad.png?branch=master)](https://tr
+[![Build Status](https://travis-ci.org/computerlyrik/chef-etherpad.png?branch=master)](https://tr
 avis-ci.org/computerlyrik/chef-etherpad)
 
 etherpad Cookbook
